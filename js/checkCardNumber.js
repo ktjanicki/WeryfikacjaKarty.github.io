@@ -38,9 +38,11 @@ const checkCardNumber = cardNumber => {
     ];
 
     const providerCheck = cardNumber => {
+        const cardPrefix = cardNumber.match(/[0-9]{2,2}/);
+        const cardFull = cardNumber.match(/[0-9]/g);
         let result = false;
         providers.forEach(({ name, prefix, length }) => {
-            if (prefix.includes(parseInt(cardNumber.match(/[0-9]{2,2}/))) && length.includes(cardNumber.match(/[0-9]/g).length)) {
+            if (prefix.includes(parseInt(cardPrefix)) && length.includes(cardFull.length)) {
                 result = name;
             }
         });
@@ -50,7 +52,8 @@ const checkCardNumber = cardNumber => {
 
     const luhnaCheck = cardNumber => {
         const even = index => (parseInt(index % 2) === 0);
-        const multiplication = cardNumber.match(/[0-9]/g).reverse().map((num, index) => (!even(index)) ? parseInt(num * 2) : parseInt(num));
+        const reverseCardDigs = cardNumber.match(/[0-9]/g).reverse();
+        const multiplication = reverseCardDigs.map((num, index) => (!even(index)) ? parseInt(num * 2) : parseInt(num));
         const addition = multiplication.join('').split('').reduce((total, num) => total += parseInt(num), 0);
 
         return ((addition % 10) === 0) ? true : false;
