@@ -54,9 +54,10 @@ const checkCardNumber = cardNumber => {
 
     const luhnaCheck = cardNumber => {
         const even = index => (parseInt(index % 2) === 0);
-        const reverseCardDigs = cardNumber.match(/[0-9]/g).reverse();
-        const multiplication = reverseCardDigs.map((num, index) => (!even(index)) ? parseInt(num * 2) : parseInt(num));
-        const addition = multiplication.join('').split('').reduce((total, num) => total += parseInt(num), 0);
+        const reverseCardDigits = cardNumber.match(/[0-9]/g).reverse();
+        const multiplication = reverseCardDigits.map((num, index) => (!even(index)) ? parseInt(num * 2) : parseInt(num));
+        const separatedDigits = multiplication.flatMap(num => String(num).split('')).map(Number);
+        const addition = separatedDigits.reduce((total, num) => total += parseInt(num), 0);
 
         return ((addition % 10) === 0) ? true : false;
     }
