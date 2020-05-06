@@ -37,13 +37,15 @@ const checkCardNumber = cardNumber => {
         }
     ];
 
+    let resultProviderName = '';
     const providerCheck = cardNumber => {
         const cardPrefix = cardNumber.match(/[0-9]{2,2}/);
         const cardFull = cardNumber.match(/[0-9]/g);
         let result = false;
         providers.forEach(({ name, prefix, length }) => {
             if (prefix.includes(parseInt(cardPrefix)) && length.includes(cardFull.length)) {
-                result = name;
+                result = true;
+                resultProviderName = name;
             }
         });
 
@@ -59,7 +61,7 @@ const checkCardNumber = cardNumber => {
         return ((addition % 10) === 0) ? true : false;
     }
 
-    return (luhnaCheck(cardNumber) && providerCheck(cardNumber)) ? providerCheck(cardNumber) : 'Numer karty jest niepoprawny';
+    return (luhnaCheck(cardNumber) && providerCheck(cardNumber)) ? resultProviderName : 'Numer karty jest niepoprawny';
 }
 
 export { checkCardNumber };
