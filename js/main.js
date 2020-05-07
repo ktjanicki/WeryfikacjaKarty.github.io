@@ -1,4 +1,3 @@
-
 import { checkCardNumber } from './checkCardNumber.js';
 
 document.querySelector('.checkButton').addEventListener('click', () => {
