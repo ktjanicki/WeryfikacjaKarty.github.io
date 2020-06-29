@@ -70,7 +70,7 @@ const checkCardNumber = (cardNumber) => {
 
   return luhnaCheck(cardNumber) && providerCheck(cardNumber)
     ? resultProviderName
-    : 'Niestety, numer karty jest niepoprawny';
+    : 'Niestety, numer karty jest niepoprawny.';
 };
 
 export { checkCardNumber };
